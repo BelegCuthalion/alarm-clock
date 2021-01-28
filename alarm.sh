@@ -23,7 +23,7 @@ clock_s_t=`dc -e "$clock_h 60 60 ** $clock_m 60 * $clock_s ++p"`
 # calculate difference in times, add number of sec. in day and mod by same
 sec_until=`dc -e "24 60 60 **d $target_s_t $clock_s_t -+r%p"`
 
-echo "The alarm will go off at $target."
+echo "The alarm will go off at $target. (in $sec_until seconds)"
 
 sleep $sec_until
 
@@ -31,7 +31,7 @@ sleep $sec_until
 while :
 do
   echo -e "\nWake up!"
-  ./playlist_buzzer.sh &
+  ./on_wake.sh &
   bpid=$!
   disown $bpid                          # eliminates termination message
   read -n1 input
